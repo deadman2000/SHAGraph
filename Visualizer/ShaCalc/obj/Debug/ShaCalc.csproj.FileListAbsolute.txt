@@ -1,0 +1,11 @@
+E:\Projects\SHA256\Visualizer\ShaCalc\bin\Debug\ShaCalc.exe.config
+E:\Projects\SHA256\Visualizer\ShaCalc\bin\Debug\ShaCalc.exe
+E:\Projects\SHA256\Visualizer\ShaCalc\bin\Debug\ShaCalc.pdb
+E:\Projects\SHA256\Visualizer\ShaCalc\bin\Debug\Tao.FreeGlut.dll
+E:\Projects\SHA256\Visualizer\ShaCalc\bin\Debug\Tao.OpenGl.dll
+E:\Projects\SHA256\Visualizer\ShaCalc\bin\Debug\Tao.FreeGlut.xml
+E:\Projects\SHA256\Visualizer\ShaCalc\bin\Debug\Tao.OpenGl.xml
+E:\Projects\SHA256\Visualizer\ShaCalc\obj\Debug\ShaCalc.csproj.CoreCompileInputs.cache
+E:\Projects\SHA256\Visualizer\ShaCalc\obj\Debug\ShaCalc.exe
+E:\Projects\SHA256\Visualizer\ShaCalc\obj\Debug\ShaCalc.pdb
+e:\Projects\SHA256\Visualizer\ShaCalc\obj\Debug\ShaCalc.csprojResolveAssemblyReference.cache
