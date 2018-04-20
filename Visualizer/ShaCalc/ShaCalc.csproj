@@ -82,11 +82,6 @@
     <Compile Include="Model\IdGenerator.cs" />
     <Compile Include="Model\OutputBit.cs" />
     <Compile Include="Model\OutputInt.cs" />
-    <Compile Include="Rendering\BitStyle.cs" />
-    <Compile Include="Rendering\BlockGate.cs" />
-    <Compile Include="Rendering\BlockStyle.cs" />
-    <Compile Include="Rendering\ConstantBitStyle.cs" />
-    <Compile Include="Rendering\Drawable.cs" />
     <Compile Include="Model\IntValue.cs" />
     <Compile Include="Model\NOT.cs" />
     <Compile Include="Model\NOT32.cs" />
@@ -96,7 +91,6 @@
     <Compile Include="Model\XOR32.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rendering\OutputBitStyle.cs" />
     <Compile Include="Sha256Net\Block256.cs" />
     <Compile Include="Sha256Net\Ch.cs" />
     <Compile Include="Sha256Net\EP0.cs" />
@@ -106,7 +100,6 @@
     <Compile Include="Sha256Net\SHARound.cs" />
     <Compile Include="Sha256Net\SIG0.cs" />
     <Compile Include="Sha256Net\SIG1.cs" />
-    <Compile Include="Rendering\Visualizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

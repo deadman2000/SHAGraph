@@ -1,4 +1,5 @@
-﻿using ShaCalc.Model;
+﻿using System.Collections.Generic;
+using ShaCalc.Model;
 
 namespace ShaCalc.Sha256Net
 {
@@ -30,6 +31,18 @@ namespace ShaCalc.Sha256Net
         public override BitGroup[] GetSubgroups()
         {
             return Ints;
+        }
+
+        public BitValue[] GenOutBits()
+        {
+            List<BitValue> bits = new List<BitValue>();
+            for (int i = 0; i < 8; i++)
+            {
+                var iv = Ints[i];
+                foreach (BitValue b in iv.GetBits())
+                    bits.Add(new OutputBit(b));
+            }
+            return bits.ToArray();
         }
     }
 }

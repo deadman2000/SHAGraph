@@ -1,6 +1,4 @@
-﻿using ShaCalc.Rendering;
-using System;
-
+﻿
 namespace ShaCalc.Model
 {
     class OR : BitValue
@@ -16,12 +14,6 @@ namespace ShaCalc.Model
         protected override bool Calc()
         {
             return Input1.Get() || Input2.Get();
-        }
-
-        static BlockStyle Style = new BitStyle("OR", 2);
-        public override BlockStyle GetStyle()
-        {
-            return Style;
         }
 
         public override BitValue[] GetInputs()

@@ -1,6 +1,4 @@
-﻿using ShaCalc.Rendering;
-using System;
-
+﻿
 namespace ShaCalc.Model
 {
     class ConstantBit : BitValue
@@ -14,16 +12,6 @@ namespace ShaCalc.Model
         protected override bool Calc()
         {
             return _value;
-        }
-
-        static BlockStyle Style0 = new ConstantBitStyle(false);
-        static BlockStyle Style1 = new ConstantBitStyle(true);
-
-        public override BlockStyle GetStyle()
-        {
-            if (_value)
-                return Style1;
-            return Style0;
         }
 
         public override BitValue[] GetInputs()

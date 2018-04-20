@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using ShaCalc.Model;
 
 namespace ShaCalc.DotExport
@@ -14,30 +12,44 @@ namespace ShaCalc.DotExport
     // http://www.graphviz.org/doc/info/attrs.html
     class DotBuilder
     {
-        private List<BitValue> _bits = new List<BitValue>();
-        private List<BitGroup> _groups = new List<BitGroup>();
-
-        private List<BitValue> _allBits;
+        public BitValue[] OutBits;
 
         StringBuilder text;
         int deep = 0;
 
+        HashSet<BitValue> allBits;
+
         public string Build()
         {
-            _allBits = new List<BitValue>();
-
             text = new StringBuilder();
             AppendLine("digraph {");
             deep++;
 
-            _allBits.AddRange(_bits);
-            foreach (var b in _bits)
+            allBits = new HashSet<BitValue>(OutBits);
+
+            Queue<BitValue> queue = new Queue<BitValue>(OutBits);
+
+            while (true)
+            {
+                if (!queue.Any())
+                    break;
+
+                var b = queue.Dequeue();
                 WriteBit(b);
 
-            foreach (var g in _groups)
-                WriteGroup(g);
+                var ins = b.GetInputs();
+                if (ins != null)
+                    foreach (var i in ins)
+                    {
+                        if (!allBits.Contains(i))
+                        {
+                            queue.Enqueue(i);
+                            allBits.Add(i);
+                        }
+                    }
+            }
 
-            foreach (var b in _allBits)
+            foreach (var b in allBits)
             {
                 var ins = b.GetInputs();
                 if (ins == null) continue;
@@ -60,7 +72,7 @@ namespace ShaCalc.DotExport
             AppendLine(sb.ToString());
         }
 
-        private void WriteGroup(BitGroup group)
+        /*private void WriteGroup(BitGroup group)
         {
             AppendLine("subgraph cluster_" + group.ID + " {");
             deep++;
@@ -82,7 +94,7 @@ namespace ShaCalc.DotExport
 
             deep--;
             AppendLine("}");
-        }
+        }*/
 
         private void AppendLine(string line)
         {
@@ -95,26 +107,6 @@ namespace ShaCalc.DotExport
         {
             Build();
             File.WriteAllText(path, text.ToString());
-        }
-
-        public void Add(BitValue bit)
-        {
-            _bits.Add(bit);
-        }
-
-        public void Add(params BitValue[] bits)
-        {
-            _bits.AddRange(bits);
-        }
-
-        public void Add(BitGroup group)
-        {
-            _groups.Add(group);
-        }
-
-        public void Add(params BitGroup[] groups)
-        {
-            _groups.AddRange(groups);
         }
     }
 }
