@@ -54,7 +54,10 @@ namespace ShaCalc.DotExport
 
         private void WriteBit(BitValue bit)
         {
-            AppendLine("bit" + bit.ID + " [label=\"" + bit.GetName() + "\"]");
+            StringBuilder sb = new StringBuilder("bit").Append(bit.ID)
+                .Append(" [label=\"").Append(bit.GetName()).Append("\"")
+                .Append(" color=").Append(bit.GetColor()).Append("]");
+            AppendLine(sb.ToString());
         }
 
         private void WriteGroup(BitGroup group)

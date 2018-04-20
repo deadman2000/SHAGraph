@@ -9,6 +9,7 @@ namespace ShaCalc.Sha256Net
     {
         private Block256 state;
         private List<BitGroup> _groups = new List<BitGroup>();
+        private List<BitValue> _bits = new List<BitValue>();
 
         public SHA(byte[] input)
         {
@@ -54,6 +55,13 @@ namespace ShaCalc.Sha256Net
                 }
                 AddRound(data);
             }
+
+            for (int i = 0; i < 8; i++)
+            {
+                var iv = state[i];
+                foreach (BitValue b in iv.GetBits())
+                    _bits.Add(new OutputBit(b));
+            }
         }
 
         private void AddRound(IntValue[] data)
@@ -86,7 +94,7 @@ namespace ShaCalc.Sha256Net
 
         public override BitValue[] GetBits()
         {
-            return null;
+            return _bits.ToArray();
         }
 
         public override BitGroup[] GetSubgroups()

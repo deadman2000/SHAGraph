@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Neo4j.Driver, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neo4j.Driver.1.5.2\lib\net452\Neo4j.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -67,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DotExport\DotBuilder.cs" />
+    <Compile Include="GraphStore\GraphStorer.cs" />
     <Compile Include="Model\ADD32.cs" />
     <Compile Include="Model\AND.cs" />
     <Compile Include="Model\AND32.cs" />
@@ -106,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

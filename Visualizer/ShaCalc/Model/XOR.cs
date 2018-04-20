@@ -33,5 +33,10 @@ namespace ShaCalc.Model
         {
             return "XOR";
         }
+
+        public override string GetColor()
+        {
+            return "gray";
+        }
     }
 }

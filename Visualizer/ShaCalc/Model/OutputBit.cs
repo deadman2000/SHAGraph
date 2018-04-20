@@ -52,5 +52,10 @@ namespace ShaCalc.Model
             if (Get()) return "1";
             return "0";
         }
+
+        public override string GetColor()
+        {
+            return "blue";
+        }
     }
 }

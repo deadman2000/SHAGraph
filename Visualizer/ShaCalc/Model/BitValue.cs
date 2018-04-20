@@ -39,5 +39,7 @@ namespace ShaCalc.Model
         public abstract BitValue[] GetInputs();
 
         public abstract string GetName();
+
+        public abstract string GetColor();
     }
 }

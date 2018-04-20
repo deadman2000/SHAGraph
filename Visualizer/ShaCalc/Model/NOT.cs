@@ -32,5 +32,10 @@ namespace ShaCalc.Model
         {
             return "NOT";
         }
+
+        public override string GetColor()
+        {
+            return "gray";
+        }
     }
 }
