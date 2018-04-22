@@ -69,12 +69,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DotExport\DotBuilder.cs" />
-    <Compile Include="GraphStore\GraphStorer.cs" />
+    <Compile Include="Export\DotBuilder.cs" />
     <Compile Include="Model\ADD32.cs" />
     <Compile Include="Model\AND.cs" />
     <Compile Include="Model\AND32.cs" />
-    <Compile Include="Model\BitGroup.cs" />
     <Compile Include="Model\BitValue.cs" />
     <Compile Include="Model\ByteValue.cs" />
     <Compile Include="Model\CircularShift32.cs" />
@@ -103,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

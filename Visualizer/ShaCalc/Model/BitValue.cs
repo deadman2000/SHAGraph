@@ -10,11 +10,9 @@ namespace ShaCalc.Model
 
         protected bool _isCalc = false;
         protected bool _value;
-        
-        public BitValue()
-        {
-        }
 
+        public int Depth;
+        
         public bool Get()
         {
             if (_isCalc) return _value;

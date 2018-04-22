@@ -17,6 +17,25 @@ namespace UnitTest
         }
 
         [TestMethod]
+        public void TestBitOperators()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                bool a = i > 0;
+
+                Assert.AreEqual(new NOT(new ConstantBit(a)).Get(), !a);
+
+                for (int j = 0; j < 2; j++)
+                {
+                    bool b = j > 0;
+                    Assert.AreEqual(new AND(new ConstantBit(a), new ConstantBit(b)).Get(), a & b);
+                    Assert.AreEqual(new OR(new ConstantBit(a), new ConstantBit(b)).Get(), a || b);
+                    Assert.AreEqual(new XOR(new ConstantBit(a), new ConstantBit(b)).Get(), a ^ b);
+                }
+            }
+        }
+
+        [TestMethod]
         public void TestConstants()
         {
             Assert.IsFalse(new ConstantBit(false).Get());
@@ -25,11 +44,11 @@ namespace UnitTest
             for (int i = 0; i < table.Length; i++)
                 Assert.AreEqual(new IntValue(table[i]).Get(), table[i]);
 
-            Assert.AreEqual(new IntValue(new ByteValue(0x3f), new ByteValue(0x4d), new ByteValue(0x8a), new ByteValue(0x01)).Get(), (uint)0x018a4d3f);
-
             Assert.AreEqual(new ByteValue(0x12).Get(), 0x12);
             Assert.AreEqual(new ByteValue(0xFA).Get(), 0xFA);
             Assert.AreEqual(new ByteValue(0xfa4556).Get(), 0x56);
+
+            Assert.AreEqual(new IntValue(new ByteValue(0x3f), new ByteValue(0x4d), new ByteValue(0x8a), new ByteValue(0x01)).Get(), (uint)0x018a4d3f);
         }
 
         [TestMethod]
@@ -43,25 +62,6 @@ namespace UnitTest
                 Assert.AreEqual(new IntValue(a).Shift(n).Get(), a >> n, "Shift error for {0} >> {1}", a, n);
             }
         }
-
-        [TestMethod]
-        public void TestBitOperators()
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                bool a = i > 0;
-
-                Assert.AreEqual(new NOT(new ConstantBit(a)).Get(), !a);
-
-                for (int j = 0; j < 2; j++)
-                {
-                    bool b = j > 0;
-                    Assert.AreEqual(new XOR(new ConstantBit(a), new ConstantBit(b)).Get(), a ^ b);
-                    Assert.AreEqual(new AND(new ConstantBit(a), new ConstantBit(b)).Get(), a & b);
-                }
-            }
-        }
-
 
         [TestMethod]
         public void TestIntOperators()

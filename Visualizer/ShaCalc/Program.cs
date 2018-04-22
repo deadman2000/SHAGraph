@@ -1,6 +1,5 @@
 ﻿using System;
-using ShaCalc.DotExport;
-using ShaCalc.GraphStore;
+using ShaCalc.Export;
 using ShaCalc.Model;
 using ShaCalc.Sha256Net;
 
@@ -13,13 +12,13 @@ namespace ShaCalc
         static void BuildDotSHA()
         {
             Random r = new Random();
-            byte[] data = new byte[256];
+            byte[] data = new byte[63];
             r.NextBytes(data);
             SHA sha = new SHA(data);
 
             DotBuilder builder = new DotBuilder();
             builder.OutBits = sha.OutBits();
-            builder.SaveToFile(@"e:\Projects\SHA256\sha.dot");
+            builder.SaveToFile(@"..\..\..\..\sha.dot");
         }
 
         static void BuildDot()
@@ -30,31 +29,21 @@ namespace ShaCalc
             var o = new OutputInt(c);
             
             DotBuilder builder = new DotBuilder();
-            builder.OutBits = Array.ConvertAll(o.GetBits(), i => (OutputBit)i);
-            builder.SaveToFile(@"e:\Projects\SHA256\graph.dot");
+            builder.OutBits = Array.ConvertAll(o.Bits, i => (OutputBit)i);
+            builder.SaveToFile(@"..\..\..\..\graph.dot");
         }
 
-        static void Store()
+        static void CalcSHA()
         {
-            /*var a = new IntValue(32);
-            var b = new IntValue(645);
-            var c = a.Add(b);
-            var o = new OutputInt(c);*/
-
-            Random r = new Random();
-            byte[] data = new byte[256];
-            r.NextBytes(data);
+            byte[] data = new byte[1] { 0xe3 };
             SHA sha = new SHA(data);
-
-            GraphStorer storer = new GraphStorer();
-            //storer.Add(a, b, c, o);
-            storer.Add(sha);
-            storer.Save();
+            sha.ResultStr();
+            Console.ReadLine();
         }
-
+        
         static void Main(string[] args)
         {
-            BuildDot();
+            CalcSHA();
         }
     }
 }

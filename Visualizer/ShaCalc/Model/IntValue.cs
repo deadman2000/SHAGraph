@@ -2,12 +2,12 @@
 
 namespace ShaCalc.Model
 {
-    class IntValue : BitGroup
+    class IntValue
     {
         /// <summary>
         /// Биты выходного значения. 0 - самый младший бит, 31 - самый старший
         /// </summary>
-        protected BitValue[] Bits = new BitValue[32];
+        public BitValue[] Bits = new BitValue[32];
 
         public BitValue this[int i]
         {
@@ -21,23 +21,23 @@ namespace ShaCalc.Model
         public IntValue(int value)
         {
             for (int i = 0; i < 32; i++)
-                Bits[i] = AddBit(new ConstantBit(((value >> i) & 1) == 1));
+                Bits[i] = new ConstantBit(((value >> i) & 1) == 1);
         }
 
         public IntValue(uint value)
         {
             for (int i = 0; i < 32; i++)
-                Bits[i] = AddBit(new ConstantBit(((value >> i) & 1) == 1));
+                Bits[i] = new ConstantBit(((value >> i) & 1) == 1);
         }
 
         public IntValue(ByteValue b0, ByteValue b1, ByteValue b2, ByteValue b3)
         {
             for (int i = 0; i < 8; i++)
             {
-                AddBit(Bits[i] = b0[i]);
-                AddBit(Bits[i + 8] = b1[i]);
-                AddBit(Bits[i + 16] = b2[i]);
-                AddBit(Bits[i + 24] = b3[i]);
+                Bits[i] = b0[i];
+                Bits[i + 8] = b1[i];
+                Bits[i + 16] = b2[i];
+                Bits[i + 24] = b3[i];
             }
         }
 
@@ -75,24 +75,6 @@ namespace ShaCalc.Model
         public IntValue Add(IntValue arg)
         {
             return new ADD32(this, arg);
-        }
-
-        private List<BitValue> _bits = new List<BitValue>();
-
-        protected BitValue AddBit(BitValue v)
-        {
-            _bits.Add(v);
-            return v;
-        }
-
-        public override BitValue[] GetBits()
-        {
-            return _bits.ToArray();
-        }
-
-        public override BitGroup[] GetSubgroups()
-        {
-            return null;
         }
     }
 }

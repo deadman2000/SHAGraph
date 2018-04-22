@@ -11,7 +11,7 @@ namespace ShaCalc.Model
         public OutputInt(IntValue input)
         {
             for (int i = 0; i < 32; i++)
-                Bits[i] = AddBit(new OutputBit(input[i]));
+                Bits[i] = new OutputBit(input[i]);
         }
     }
 }

@@ -23,13 +23,7 @@
             for (int i = 0; i < 8; i++)
                 Bits[i] = new ConstantBit(((value >> i) & 1) == 1);
         }
-
-        public ByteValue(ulong value)
-        {
-            for (int i = 0; i < 8; i++)
-                Bits[i] = new ConstantBit(((value >> i) & 1) == 1);
-        }
-
+        
         public byte Get()
         {
             int value = 0;

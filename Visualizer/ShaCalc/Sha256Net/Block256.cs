@@ -3,7 +3,7 @@ using ShaCalc.Model;
 
 namespace ShaCalc.Sha256Net
 {
-    class Block256 : BitGroup
+    class Block256
     {
         protected IntValue[] Ints = new IntValue[8];
 
@@ -23,26 +23,18 @@ namespace ShaCalc.Sha256Net
         {
         }
 
-        public override BitValue[] GetBits()
-        {
-            return null;
-        }
-
-        public override BitGroup[] GetSubgroups()
-        {
-            return Ints;
-        }
-
         public BitValue[] GenOutBits()
         {
-            List<BitValue> bits = new List<BitValue>();
+            BitValue[] bits = new BitValue[8 * 32];
             for (int i = 0; i < 8; i++)
             {
                 var iv = Ints[i];
-                foreach (BitValue b in iv.GetBits())
-                    bits.Add(new OutputBit(b));
+                for (int n = 0; n < 32; n++)
+                {
+                    bits[i * 8 + n] = iv[n];
+                }
             }
-            return bits.ToArray();
+            return bits;
         }
     }
 }
