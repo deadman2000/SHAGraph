@@ -7,9 +7,9 @@ XOR::XOR(BitValue * in1, BitValue * in2)
 }
 
 
-BitValue *XOR::GetInputs()
+BitValue **XOR::GetInputs()
 {
-    return _inputs[0];
+    return _inputs;
 }
 
 int XOR::GetInputsCount()

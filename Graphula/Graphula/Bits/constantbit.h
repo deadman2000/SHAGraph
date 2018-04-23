@@ -1,19 +1,16 @@
-#ifndef NOT_H
-#define NOT_H
+#ifndef CONSTANTBIT_H
+#define CONSTANTBIT_H
 
 #include "bitvalue.h"
 
-class NOT : public BitValue
+class ConstantBit : public BitValue
 {
-private:
-    BitValue * _input;
-
 public:
-    NOT(BitValue * in1);
+    ConstantBit(bool value);
 
     // BitValue interface
 public:
-    virtual BitValue *GetInputs() override;
+    virtual BitValue **GetInputs() override;
     virtual int GetInputsCount() override;
     virtual QString GetName() override;
 
@@ -21,4 +18,4 @@ protected:
     virtual bool Calc() override;
 };
 
-#endif // NOT_H
+#endif // CONSTANTBIT_H

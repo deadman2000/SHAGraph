@@ -44,8 +44,6 @@ namespace ShaCalc.Sha256Net
                 {
                     int offset = i * 64 + j * 4;
                     data[j] = new IntValue(input[offset + 3] | (input[offset + 2] << 8) | (input[offset + 1] << 16) | (input[offset] << 24));
-
-                    Console.WriteLine(data[j].Get());
                 }
                 state = new SHARound(state, data);
             }
@@ -53,7 +51,7 @@ namespace ShaCalc.Sha256Net
 
         public BitValue[] OutBits()
         {
-            return state.GenOutBits();
+            return state.GetOutBits();
         }
 
         public byte[] Result()

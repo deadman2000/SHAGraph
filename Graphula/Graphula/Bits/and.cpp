@@ -7,9 +7,9 @@ AND::AND(BitValue * in1, BitValue * in2)
 }
 
 
-BitValue *AND::GetInputs()
+BitValue **AND::GetInputs()
 {
-    return _inputs[0];
+    return _inputs;
 }
 
 int AND::GetInputsCount()

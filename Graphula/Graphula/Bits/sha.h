@@ -11,6 +11,8 @@ public:
 
     QByteArray Result() const;
 
+    QList<BitValue*> OutBits() const;
+
 private:
     Block256 state;
 };

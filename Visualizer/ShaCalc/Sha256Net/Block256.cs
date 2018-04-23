@@ -23,7 +23,7 @@ namespace ShaCalc.Sha256Net
         {
         }
 
-        public BitValue[] GenOutBits()
+        public BitValue[] GetOutBits()
         {
             BitValue[] bits = new BitValue[8 * 32];
             for (int i = 0; i < 8; i++)
@@ -31,7 +31,7 @@ namespace ShaCalc.Sha256Net
                 var iv = Ints[i];
                 for (int n = 0; n < 32; n++)
                 {
-                    bits[i * 8 + n] = iv[n];
+                    bits[i * 32 + n] = iv[n];
                 }
             }
             return bits;

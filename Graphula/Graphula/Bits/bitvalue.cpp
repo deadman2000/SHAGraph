@@ -4,6 +4,7 @@ static int NEXT_ID = -1;
 
 BitValue::BitValue()
     : ID(++NEXT_ID)
+    , depth(0)
     , _isCalc(false)
 {
 }

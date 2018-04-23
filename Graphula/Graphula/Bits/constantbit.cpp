@@ -7,7 +7,7 @@ ConstantBit::ConstantBit(bool value)
 }
 
 
-BitValue *ConstantBit::GetInputs()
+BitValue **ConstantBit::GetInputs()
 {
     return nullptr;
 }

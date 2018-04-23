@@ -19,7 +19,7 @@ namespace ShaCalc.Export
 
         HashSet<BitValue> allBits;
 
-        int max_depth = 100; // For SHA 74
+        int max_depth = 7; // For SHA 74
 
         public string Build()
         {
@@ -46,15 +46,15 @@ namespace ShaCalc.Export
 
                 var ins = b.GetInputs();
                 if (ins != null)
-                    foreach (var i in ins)
+                    foreach (var ib in ins)
                     {
-                        if (i.Depth == 0)
-                            i.Depth = d;
+                        if (ib.Depth == 0)
+                            ib.Depth = d;
                         
-                        if (!allBits.Contains(i))
+                        if (!allBits.Contains(ib))
                         {
-                            queue.Enqueue(i);
-                            allBits.Add(i);
+                            queue.Enqueue(ib);
+                            allBits.Add(ib);
                         }
                     }
             }

@@ -1,19 +1,19 @@
-#ifndef OR_H
-#define OR_H
+#ifndef AND_H
+#define AND_H
 
 #include "bitvalue.h"
 
-class OR : public BitValue
+class AND : public BitValue
 {
 private:
     BitValue * _inputs[2];
 
 public:
-    OR(BitValue * in1, BitValue * in2);
+    AND(BitValue * in1, BitValue * in2);
 
     // BitValue interface
 public:
-    virtual BitValue *GetInputs() override;
+    virtual BitValue **GetInputs() override;
     virtual int GetInputsCount() override;
     virtual QString GetName() override;
 
@@ -21,4 +21,4 @@ protected:
     virtual bool Calc() override;
 };
 
-#endif // OR_H
+#endif // AND_H

@@ -1,5 +1,7 @@
 #include "intvalue.h"
 
+#include <QList>
+
 #include "constantbit.h"
 #include "xor.h"
 #include "and.h"
@@ -107,4 +109,13 @@ IntValue IntValue::Add(const IntValue & other) const
             carry = new OR(new AND(x0, carry), new AND(Bits[i], other.Bits[i]));
     }
     return val;
+}
+
+QList<BitValue *> IntValue::OutBits() const
+{
+    QList<BitValue *> bits;
+    bits.reserve(32);
+    for (int i=0; i<32; i++)
+        bits.append(Bits[i]);
+    return bits;
 }

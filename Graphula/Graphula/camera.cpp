@@ -7,10 +7,10 @@ using namespace std;
 
 Camera::Camera() {
 	camera_mode = FREE;
-	camera_up = glm::vec3(0, 1, 0);
+    camera_up = glm::vec3(0, 0, 1);
 	field_of_view = 45;
 	camera_position_delta = glm::vec3(0, 0, 0);
-	camera_scale = .5f;
+    camera_scale = 5.f;
 	max_pitch_rate = 5;
 	max_heading_rate = 5;
 	move_camera = false;
@@ -19,7 +19,7 @@ Camera::~Camera() {
 }
 
 void Camera::Reset() {
-	camera_up = glm::vec3(0, 1, 0);
+    camera_up = glm::vec3(0, 0, 1);
 }
 
 void Camera::Update() {
@@ -66,7 +66,7 @@ void Camera::Update() {
 //Setting Functions
 void Camera::SetMode(CameraType cam_mode) {
 	camera_mode = cam_mode;
-	camera_up = glm::vec3(0, 1, 0);
+    camera_up = glm::vec3(0, 0, 1);
 }
 
 void Camera::SetPosition(glm::vec3 pos) {

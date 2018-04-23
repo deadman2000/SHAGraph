@@ -29,34 +29,17 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     graphwidget.cpp \
-    bitvalue.cpp \
-    and.cpp \
-    constantbit.cpp \
-    or.cpp \
-    xor.cpp \
-    not.cpp \
-    intvalue.cpp \
-    bytevalue.cpp \
-    sha.cpp \
-    block256.cpp \
     camera.cpp
 
 HEADERS += \
     mainwindow.h \
     graphwidget.h \
-    bitvalue.h \
-    and.h \
-    constantbit.h \
-    or.h \
-    xor.h \
-    not.h \
-    intvalue.h \
-    bytevalue.h \
-    sha.h \
-    block256.h \
     camera.h
 
-INCLUDEPATH += ../libs
+include(Bits/Bits.pri)
+include(Layout/Layout.pri)
+	
+INCLUDEPATH += ../libs Bits Layout
 
 FORMS += \
         mainwindow.ui

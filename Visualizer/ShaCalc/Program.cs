@@ -43,7 +43,7 @@ namespace ShaCalc
         
         static void Main(string[] args)
         {
-            CalcSHA();
+            BuildDotSHA();
         }
     }
 }

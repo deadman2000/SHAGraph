@@ -1,5 +1,7 @@
 #include "block256.h"
 
+#include <QList>
+
 Block256::Block256()
 {
 }
@@ -14,4 +16,18 @@ Block256::Block256(const IntValue &v0, const IntValue &v1, const IntValue &v2, c
     Ints[5] = v5;
     Ints[6] = v6;
     Ints[7] = v7;
+}
+
+QList<BitValue*> Block256::GetOutBits() const
+{
+    QList<BitValue*> bits;
+    bits.reserve(8 * 32);
+    for (int i = 0; i < 8; ++i)
+    {
+        for (int n = 0; n < 32; n++)
+        {
+            bits.append(Ints[i].Bits[n]);
+        }
+    }
+    return bits;
 }

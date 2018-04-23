@@ -18,6 +18,8 @@ public:
              const IntValue & v5,
              const IntValue & v6,
              const IntValue & v7);
+
+    QList<BitValue*> GetOutBits() const;
 };
 
 #endif // BLOCK256_H

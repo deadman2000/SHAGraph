@@ -27,16 +27,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         tst_testtest.cpp \
-        ../Graphula/bitvalue.cpp \
-        ../Graphula/constantbit.cpp \
-        ../Graphula/and.cpp \
-        ../Graphula/or.cpp \
-        ../Graphula/xor.cpp \
-        ../Graphula/not.cpp \
-        ../Graphula/intvalue.cpp \
-        ../Graphula/bytevalue.cpp \
-        ../Graphula/sha.cpp \
-        ../Graphula/block256.cpp
+        ../Graphula/Bits/bitvalue.cpp \
+        ../Graphula/Bits/constantbit.cpp \
+        ../Graphula/Bits/and.cpp \
+        ../Graphula/Bits/or.cpp \
+        ../Graphula/Bits/xor.cpp \
+        ../Graphula/Bits/not.cpp \
+        ../Graphula/Bits/intvalue.cpp \
+        ../Graphula/Bits/bytevalue.cpp \
+        ../Graphula/Bits/sha.cpp \
+        ../Graphula/Bits/block256.cpp
 
 
-INCLUDEPATH += ../Graphula
+INCLUDEPATH += ../Graphula/Bits/

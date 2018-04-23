@@ -4,8 +4,11 @@
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 #include <QTimer>
+#include <QSet>
 
+#include <forceatlas2.h>
 #include "camera.h"
+#include "bitvalue.h"
 
 class GraphWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -13,6 +16,9 @@ class GraphWidget : public QOpenGLWidget, protected QOpenGLFunctions
 
 public:
     GraphWidget(QWidget *parent = 0);
+
+    void setNodes(QList<BitValue*> nodes);
+    void setMaxDepth(int depth);
 
 protected:
     void initializeGL() override;
@@ -22,6 +28,7 @@ protected:
     void tick();
 
     void keyPressEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
@@ -29,8 +36,12 @@ protected:
 
 private:
     QTimer timer;
-
     Camera camera;
+    QSet<int> keys;
+    QList<BitValue*> nodes;
+    int max_depth;
+
+    ForceAtlas2 force;
 };
 
 #endif // GRAPHWIDGET_H

@@ -27,6 +27,8 @@ public:
     IntValue Not() const;
 
     IntValue Add(const IntValue & val) const;
+
+    QList<BitValue*> OutBits() const;
 };
 
 #endif // INTVALUE_H

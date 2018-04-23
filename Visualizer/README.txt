@@ -4,7 +4,7 @@
 	Работа с OpenGL - перемещение камеры, отдаление, приблежение
 	Чтение списка нодов
 	Визуализация нодов
-	Укладка по алгоритму ForceAtlas 2  (https://github.com/gephi/gephi/blob/be1a3a169a3da495f7954e4ce97ffca1a8eb76d2/modules/LayoutPlugin/src/main/java/org/gephi/layout/plugin/forceAtlas2/ForceAtlas2.java)
+	Укладка по алгоритму ForceAtlas 2  ( https://github.com/gephi/gephi/blob/be1a3a169a3da495f7954e4ce97ffca1a8eb76d2/modules/LayoutPlugin/src/main/java/org/gephi/layout/plugin/forceAtlas2/ForceAtlas2.java )
 	Перенос алгоритма в 3D
 	Сохранение результата в файл и обратно
 

@@ -161,3 +161,8 @@ QByteArray SHA::Result() const
     }
     return result;
 }
+
+QList<BitValue *> SHA::OutBits() const
+{
+    return state.GetOutBits();
+}

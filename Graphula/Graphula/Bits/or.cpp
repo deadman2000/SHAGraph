@@ -6,9 +6,9 @@ OR::OR(BitValue * in1, BitValue * in2)
     _inputs[1] = in2;
 }
 
-BitValue *OR::GetInputs()
+BitValue **OR::GetInputs()
 {
-    return _inputs[0];
+    return _inputs;
 }
 
 int OR::GetInputsCount()

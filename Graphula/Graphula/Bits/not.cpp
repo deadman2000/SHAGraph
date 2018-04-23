@@ -5,9 +5,9 @@ NOT::NOT(BitValue * in1)
 {
 }
 
-BitValue *NOT::GetInputs()
+BitValue **NOT::GetInputs()
 {
-    return _input;
+    return &_input;
 }
 
 int NOT::GetInputsCount()

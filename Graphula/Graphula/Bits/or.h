@@ -1,19 +1,19 @@
-#ifndef XOR_H
-#define XOR_H
+#ifndef OR_H
+#define OR_H
 
 #include "bitvalue.h"
 
-class XOR : public BitValue
+class OR : public BitValue
 {
 private:
     BitValue * _inputs[2];
 
 public:
-    XOR(BitValue * in1, BitValue * in2);
+    OR(BitValue * in1, BitValue * in2);
 
     // BitValue interface
 public:
-    virtual BitValue *GetInputs() override;
+    virtual BitValue **GetInputs() override;
     virtual int GetInputsCount() override;
     virtual QString GetName() override;
 
@@ -21,4 +21,4 @@ protected:
     virtual bool Calc() override;
 };
 
-#endif // XOR_H
+#endif // OR_H
