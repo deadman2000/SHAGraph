@@ -52,6 +52,8 @@ void Region::buildSubRegions()
     if (nodes.size() <= 1) return;
 
     QList<BitValue*> upDownNodes[2];
+	//upDownNodes[0].reserve(nodes.size());
+	//upDownNodes[1].reserve(nodes.size());
     foreach (BitValue * n, nodes) {
         QList<BitValue*> & nodesColumn = (n->z < massCenterZ) ? (upDownNodes[0]) : (upDownNodes[1]);
         nodesColumn.append(n);
@@ -62,6 +64,8 @@ void Region::buildSubRegions()
         QList<BitValue*> & zSubNodes = upDownNodes[z];
 
         QList<BitValue*> leftRightNodes[2];
+		//leftRightNodes[0].reserve(zSubNodes.size());
+		//leftRightNodes[1].reserve(zSubNodes.size());
         foreach (BitValue * n, zSubNodes) {
             QList<BitValue*> & nodesColumn = (n->x < massCenterX) ? (leftRightNodes[0]) : (leftRightNodes[1]);
             nodesColumn.append(n);
@@ -71,6 +75,8 @@ void Region::buildSubRegions()
             QList<BitValue*> & xSubNodes = upDownNodes[x];
 
             QList<BitValue*> topBottomNodes[2];
+			//topBottomNodes[0].reserve(xSubNodes.size());
+			//topBottomNodes[1].reserve(xSubNodes.size());
             foreach (BitValue * n, xSubNodes) {
                 QList<BitValue*> & nodesLine = (n->y < massCenterY) ? (topBottomNodes[0]) : (topBottomNodes[1]);
                 nodesLine.append(n);
@@ -85,8 +91,7 @@ void Region::buildSubRegions()
                         subregions.append(subregion);
                     } else {
                         foreach (BitValue * n, ySubNodes) {
-                            QList<BitValue*> oneNodeList;
-                            oneNodeList.append(n);
+							QList<BitValue*> oneNodeList({ n });
                             Region* subregion = new Region(oneNodeList);
                             subregions.append(subregion);
                         }
@@ -103,14 +108,14 @@ void Region::buildSubRegions()
 
 void Region::applyForce(BitValue *n, RepulsionForce *Force, double thetaSq)
 {
-    if (nodes.size() < 2) {
+    if (nodes.size() == 1) { // Попали в регион с одним нодом - притягиваемся к нему
         BitValue* regionNode = nodes[0];
         Force->apply(n, regionNode);
     } else {
-        double distance = DIST3DSQ(n->x - massCenterX, n->y - massCenterY, n->z - massCenterZ); // TODO Square dist
-        if (distance * thetaSq > size) {
+        double distance = DIST3DSQ(n->x - massCenterX, n->y - massCenterY, n->z - massCenterZ); // Считаем расстояние до центра масс
+        if (distance * thetaSq > size) { // Расстояние больше порога - считаем притяжение по региону в целом
             Force->apply(n, this);
-        } else {
+        } else { // Меньше порога - притягиваемся к подрегионам
             foreach (Region* subregion, subregions) {
                 subregion->applyForce(n, Force, thetaSq);
             }

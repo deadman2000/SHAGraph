@@ -3,8 +3,6 @@
 #include <QDebug>
 #include <QtMath>
 
-#include "nodesthread.h"
-
 void ForceAtlas2::work()
 {
     while (!stopped) {
@@ -36,14 +34,14 @@ void ForceAtlas2::prepare()
     speedEfficiency = 1;
 
     foreach (BitValue* n, nodes) {
-        if (n->depth >= max_depth)
+        if (n->depth > max_depth)
             n->mass = 1;
         else
             n->mass = 1 + n->GetInputsCount();
     }
 
     foreach (BitValue* n, nodes) {
-        if (n->depth >= max_depth) continue;
+        if (n->depth > max_depth) continue;
         for (int i=0; i<n->GetInputsCount(); i++) {
             BitValue* ib = n->GetInputs()[i];
             ib->mass++;
@@ -73,7 +71,7 @@ void ForceAtlas2::prepare()
 void ForceAtlas2::doAlg()
 {
     foreach (BitValue* n, nodes) {
-        if (n->depth >= max_depth) continue;
+        if (n->depth > max_depth) continue;
         n->old_dx = n->dx;
         n->old_dy = n->dy;
         n->old_dz = n->dz;
@@ -83,7 +81,7 @@ void ForceAtlas2::doAlg()
     }
 
     if (isBarnesHutOptimize) {
-        if (rootRegion)
+        if (rootRegion) // TODO Reuse region
             delete rootRegion;
         rootRegion = new Region(nodes);
         rootRegion->buildSubRegions();
@@ -101,16 +99,16 @@ void ForceAtlas2::doAlg()
     // Repulsion
     if (isBarnesHutOptimize) {
         foreach (BitValue* n, nodes) {
-            if (n->depth >= max_depth) continue;
-            rootRegion->applyForce(n, Repulsion, barnesHutTheta);
+            if (n->depth > max_depth) continue;
+            rootRegion->applyForce(n, Repulsion, barnesHutTheta * barnesHutTheta);
         }
     } else {
         for (int n1Index = 0; n1Index < nodes.size(); n1Index++) {
             BitValue * n1 = nodes[n1Index];
-            if (n1->depth >= max_depth) continue;
+            if (n1->depth > max_depth) continue;
             for (int n2Index = 0; n2Index < n1Index; n2Index++) {
                 BitValue * n2 = nodes[n2Index];
-                if (n2->depth >= max_depth) continue;
+                if (n2->depth > max_depth) continue;
                 Repulsion->apply(n1, n2);
             }
         }
@@ -118,7 +116,7 @@ void ForceAtlas2::doAlg()
 
     // Gravity
     foreach (BitValue* n, nodes) {
-        if (n->depth >= max_depth) continue;
+        if (n->depth > max_depth) continue;
         GravityForce->apply(n, gravity / scalingRatio);
     }
 
@@ -135,7 +133,7 @@ void ForceAtlas2::doAlg()
     double totalSwinging = 0;  // How much irregular movement
     double totalEffectiveTraction = 0;  // Hom much useful movement
     foreach (BitValue* n, nodes) {
-        if (n->depth >= max_depth) continue;
+        if (n->depth > max_depth) continue;
         //if (!n.isFixed()) {
         double swinging = DIST3D(n->old_dx - n->dx, n->old_dy - n->dy, n->old_dz - n->dz);
         totalSwinging += n->mass * swinging;   // If the node has a burst change of direction, then it's not converging.
@@ -178,13 +176,13 @@ void ForceAtlas2::doAlg()
 
     if (isAdjustSizes) {
         foreach (BitValue* n, nodes) {
-            if (n->depth >= max_depth) continue;
+            if (n->depth > max_depth) continue;
             //if (!n.isFixed()) {
 
             // Adaptive auto-speed: the speed of each node is lowered
             // when the node swings.
             double swinging = n->mass * DIST3D(n->old_dx - n->dx, n->old_dy - n->dy, n->old_dz - n->dz);
-            double factor = 0.1 * speed / (1.0f + qSqrt(speed * swinging));
+            double factor = 0.1 * speed / (1.0 + qSqrt(speed * swinging));
 
             double df = DIST3D(n->dx, n->dy, n->dz);
             factor = qMin(factor * df, 10.) / df;
@@ -193,26 +191,26 @@ void ForceAtlas2::doAlg()
             double y = n->y + n->dy * factor;
             double z = n->z + n->dz * factor;
 
-            n->x = (float) x;
-            n->y = (float) y;
-            n->z = (float) z;
+            n->x = x;
+            n->y = y;
+            n->z = z;
         }
     } else {
         foreach (BitValue* n, nodes) {
-            if (n->depth >= max_depth) continue;
+            if (n->depth > max_depth) continue;
             //if (!n.isFixed()) {
             // Adaptive auto-speed: the speed of each node is lowered
             // when the node swings.
             double swinging = n->mass * DIST3D(n->old_dx - n->dx, n->old_dy - n->dy, n->old_dz - n->dz);
-            double factor = speed / (1.0f + qSqrt(speed * swinging));
+            double factor = speed / (1.0 + qSqrt(speed * swinging));
 
             double x = n->x + n->dx * factor;
             double y = n->y + n->dy * factor;
             double z = n->z + n->dz * factor;
 
-            n->x = (float) x;
-            n->y = (float) y;
-            n->z = (float) z;
+            n->x = x;
+            n->y = y;
+			n->z = z;
         }
     }
 }

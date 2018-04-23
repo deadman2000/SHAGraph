@@ -42,7 +42,7 @@ public:
     double edgeWeightInfluence = 1.0;    // Влияние весов ребер
 
     double jitterTolerance = 1.0;     // Устойчивость
-    bool isBarnesHutOptimize = false;  // Приближенное отталкивание
+    bool isBarnesHutOptimize = false; // Приближенное отталкивание
     double barnesHutTheta = 1.2;
 
     double scalingRatio = 2.0;        // Разреженность

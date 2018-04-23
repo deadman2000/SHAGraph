@@ -26,9 +26,9 @@ public:
     virtual QString GetName() = 0;
 
     int depth;
-    float x, y, z;
-    float dx, dy, dz, old_dx, old_dy, old_dz;
-    float mass;
+    double x, y, z;
+    double dx, dy, dz, old_dx, old_dy, old_dz;
+    double mass;
     int outCount;
 
 protected:

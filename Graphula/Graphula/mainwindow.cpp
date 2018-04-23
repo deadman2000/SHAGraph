@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->graphView->setFocus();
 
-    int max_depth = 8;
+    int max_depth = 5;
 
     /*IntValue a(32);
     IntValue b(54);
@@ -60,7 +60,8 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         b->x = rnd.bounded(-500, 500);
         b->y = rnd.bounded(-500, 500);
-        b->z = rnd.bounded(-500, 500);
+        //b->z = rnd.bounded(-500, 500);
+        b->z = b->depth * 100;
     }
 
     ui->graphView->setMaxDepth(max_depth);

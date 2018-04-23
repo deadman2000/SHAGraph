@@ -14,7 +14,7 @@ GraphWidget::GraphWidget(QWidget *parent)
     camera.SetMode(FREE);
     camera.SetPosition(glm::vec3(500, 500, 500));
     camera.SetLookAt(glm::vec3(0, 0, 0));
-    camera.SetClipping(.1, 10000);
+    camera.SetClipping(.1, 100000);
     camera.SetFOV(45);
 }
 
@@ -35,7 +35,7 @@ void GraphWidget::initializeGL()
 {
     initializeOpenGLFunctions();
 
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -66,22 +66,38 @@ void GraphWidget::paintGL()
     glEnd();
 
 
-    glColor4d(0, 0, 0, 0.5);
-    glBegin(GL_LINES);
+	glPointSize(6.0);
+    glLineWidth(2.f);
     foreach (BitValue* b, nodes)
     {
         if (b->depth >= max_depth) continue;
 
+        if (b->depth == 0)
+            glColor3d(1, 0, 0);
+        else
+            glColor3d(0.75, 0.75, 0.75);
+
+		glBegin(GL_POINTS);
+		glVertex3d(b->x, b->y, b->z);
+		glEnd();
+
+		if (b->depth == 0)
+			glColor4d(1, 0, 0, 1);
+		else
+			glColor4d(0.75, 0.75, 0.75, 1);
+
+		glBegin(GL_LINES);
         BitValue** ins = b->GetInputs();
         for (int i=0; i<b->GetInputsCount(); ++i)
         {
             BitValue* ib = ins[i];
+			if (ib->depth >= max_depth) continue;
 
-            glVertex3f(b->x, b->y, b->z);
-            glVertex3f(ib->x, ib->y, ib->z);
+            glVertex3d(b->x, b->y, b->z);
+            glVertex3d(ib->x, ib->y, ib->z);
         }
+		glEnd();
     }
-    glEnd();
 }
 
 void GraphWidget::resizeGL(int nWidth, int nHeight)

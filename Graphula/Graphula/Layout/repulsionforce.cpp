@@ -86,7 +86,7 @@ class linRepulsion : public RepulsionForce
 public:
     linRepulsion(double c) : coefficient(c) {}
 
-    void apply(BitValue *n1, BitValue *n2)
+    void apply(BitValue *n1, BitValue *n2) // TODO Optimize
     {
         // Get the distance
         double xDist = n1->x - n2->x;
@@ -97,14 +97,17 @@ public:
         if (distance > 0) {
             // NB: factor = force / distance
             double factor = coefficient * n1->mass * n2->mass / distance;
+			xDist *= factor;
+			yDist *= factor;
+			zDist *= factor;
 
-            n1->dx += xDist * factor;
-            n1->dy += yDist * factor;
-            n1->dz += zDist * factor;
+            n1->dx += xDist;
+            n1->dy += yDist;
+            n1->dz += zDist;
 
-            n2->dx -= xDist * factor;
-            n2->dy -= yDist * factor;
-            n2->dz -= zDist * factor;
+            n2->dx -= xDist;
+            n2->dy -= yDist;
+            n2->dz -= zDist;
         }
     }
 

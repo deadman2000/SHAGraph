@@ -1,6 +1,10 @@
 //camera.cpp
 #include "camera.h"
 
+#ifdef _MSC_VER
+#include <Windows.h>
+#endif
+
 #include <GL/gl.h>
 
 using namespace std;
@@ -14,6 +18,8 @@ Camera::Camera() {
 	max_pitch_rate = 5;
 	max_heading_rate = 5;
 	move_camera = false;
+	camera_pitch = 0;
+	camera_heading = 0;
 }
 Camera::~Camera() {
 }
