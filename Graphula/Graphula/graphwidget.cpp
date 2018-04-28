@@ -82,9 +82,9 @@ void GraphWidget::paintGL()
 		glEnd();
 
 		if (b->depth == 0)
-			glColor4d(1, 0, 0, 1);
+            glColor4d(1, 0, 0, 0.5);
 		else
-			glColor4d(0.75, 0.75, 0.75, 1);
+            glColor4d(0.75, 0.75, 0.75, 0.5);
 
 		glBegin(GL_LINES);
         BitValue** ins = b->GetInputs();

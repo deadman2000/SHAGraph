@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,8 @@ namespace ShaCalc.Export
 
         HashSet<BitValue> allBits;
 
-        int max_depth = 7; // For SHA 74
+        int max_depth = 15; // For SHA 74
+        int graph_depth;
 
         public string Build()
         {
@@ -28,7 +30,6 @@ namespace ShaCalc.Export
             deep++;
 
             allBits = new HashSet<BitValue>(OutBits);
-
             Queue<BitValue> queue = new Queue<BitValue>(OutBits);
 
             while (true)
@@ -37,11 +38,18 @@ namespace ShaCalc.Export
                     break;
 
                 var b = queue.Dequeue();
+
                 WriteBit(b);
 
                 int d = b.Depth + 1;
 
+                if (d > graph_depth)
+                    graph_depth = d;
+
                 if (d > max_depth)
+                    continue;
+
+                if (b is ConstantBit)
                     continue;
 
                 var ins = b.GetInputs();
@@ -49,8 +57,9 @@ namespace ShaCalc.Export
                     foreach (var ib in ins)
                     {
                         if (ib.Depth == 0)
+                            //if (ib.Depth < d)
                             ib.Depth = d;
-                        
+
                         if (!allBits.Contains(ib))
                         {
                             queue.Enqueue(ib);
@@ -59,6 +68,9 @@ namespace ShaCalc.Export
                     }
             }
 
+
+            Console.WriteLine("Depth: " + graph_depth);
+            Console.WriteLine("Nodes: " + allBits.Count);
             foreach (var b in allBits)
             {
                 if (b.Depth == max_depth) continue;
@@ -67,7 +79,8 @@ namespace ShaCalc.Export
                 if (ins == null) continue;
                 foreach (var i in ins)
                 {
-                    AppendLine("bit" + i.ID + " -> bit" + b.ID);
+                    if (allBits.Contains(i))
+                        AppendLine("bit" + i.ID + " -> bit" + b.ID);
                 }
             }
 
@@ -81,12 +94,16 @@ namespace ShaCalc.Export
             StringBuilder sb = new StringBuilder("bit").Append(bit.ID)
                 .Append(" [")
                 .Append("label=\"").Append(bit.GetName()).Append("\"")
-                .Append(" color=").Append(bit.GetColor())
-                .Append(" depth=").Append(bit.Depth)
-                .Append("]");
+                .Append(" color=").Append(GetColor(bit))
+                .Append(" depth=").Append(bit.Depth).Append("]");
             AppendLine(sb.ToString());
         }
-        
+
+        private static string GetColor(BitValue bit)
+        {
+            return "gray";
+        }
+
         private void AppendLine(string line)
         {
             for (int i = 0; i < deep; i++)

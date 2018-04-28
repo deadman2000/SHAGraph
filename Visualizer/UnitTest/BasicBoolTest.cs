@@ -38,8 +38,9 @@ namespace UnitTest
         [TestMethod]
         public void TestConstants()
         {
-            Assert.IsFalse(new ConstantBit(false).Get());
-            Assert.IsTrue(new ConstantBit(true).Get());
+            Assert.IsFalse(new ConstantBit(false).Get().Value);
+            Assert.IsTrue(new ConstantBit(true).Get().Value);
+            Assert.IsNull(new VariableBit().Get());
 
             for (int i = 0; i < table.Length; i++)
                 Assert.AreEqual(new IntValue(table[i]).Get(), table[i]);
@@ -120,10 +121,21 @@ namespace UnitTest
         [TestMethod]
         public void TestRandomSHA()
         {
+            CalcRandomSHA(0);
             CalcRandomSHA(63);
             CalcRandomSHA(64);
             CalcRandomSHA(65);
             CalcRandomSHA(812);
+        }
+
+        [TestMethod]
+        public void TestDoubleSHA()
+        {
+            CalcRandomDoubleSHA(0);
+            CalcRandomDoubleSHA(63);
+            CalcRandomDoubleSHA(64);
+            CalcRandomDoubleSHA(65);
+            CalcRandomDoubleSHA(812);
         }
 
         private void CalcRandomSHA(int size)
@@ -133,10 +145,32 @@ namespace UnitTest
             r.NextBytes(data);
 
             SHA256 sha = SHA256.Create();
-            var hash = BitConverter.ToString(sha.ComputeHash(data)).Replace("-", String.Empty).ToLower();
+            var shaOut = sha.ComputeHash(data);
 
             SHA mySHA = new SHA(data);
-            string myHash = mySHA.ResultStr();
+            var myHash = mySHA.Result();
+            Assert.AreEqual(BitConverter.ToString(shaOut), BitConverter.ToString(myHash));
+        }
+
+        private void CalcRandomDoubleSHA(int size)
+        {
+            Random r = new Random();
+            byte[] data = new byte[size];
+            r.NextBytes(data);
+
+
+            SHA256 sha = SHA256.Create();
+            var shaOut = sha.ComputeHash(data);
+
+            SHA256 sha2 = SHA256.Create();
+            var hash = BitConverter.ToString(sha2.ComputeHash(shaOut)).Replace("-", String.Empty).ToLower();
+
+            var s1 = new SHA(data).OutBits();
+            //var s1 = new SHA(data).Result();
+            //Assert.AreEqual(BitConverter.ToString(shaOut), BitConverter.ToString(s1));
+            
+            SHA sha2Bits = new SHA(s1);
+            string myHash = sha2Bits.ResultStr();
             Assert.AreEqual(hash, myHash);
         }
     }

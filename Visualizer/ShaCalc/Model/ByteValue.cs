@@ -1,15 +1,23 @@
-﻿namespace ShaCalc.Model
+﻿using System;
+
+namespace ShaCalc.Model
 {
     class ByteValue
     {
         /// <summary>
         /// Биты значения. 0 - самый младший бит, 7 - самый старший
         /// </summary>
-        protected BitValue[] Bits = new BitValue[8];
+        public BitValue[] Bits = new BitValue[8];
 
         public BitValue this[int i]
         {
             get { return Bits[i]; }
+        }
+
+        public ByteValue() {
+
+            for (int i = 0; i < 8; i++)
+                Bits[i] = new VariableBit();
         }
 
         public ByteValue(byte value)
@@ -28,8 +36,11 @@
         {
             int value = 0;
             for (int i = 0; i < 8; i++)
-                if (Bits[i].Get())
+            {
+                var v = Bits[i].Get();
+                if (v.HasValue && v.Value)
                     value |= (1 << i);
+            }
             return (byte)value;
         }
     }

@@ -3,7 +3,7 @@
 #include <QtMath>
 #include <QDebug>
 
-Region::Region(QList<BitValue*> nodes)
+Region::Region(const QList<BitValue*> & nodes)
     : nodes(nodes)
 {
     updateMassAndGeometry();
@@ -49,7 +49,7 @@ void Region::updateMassAndGeometry()
 
 void Region::buildSubRegions()
 {
-    if (nodes.size() <= 1) return;
+    if (nodes.size() <= 5) return;
 
     QList<BitValue*> upDownNodes[2];
 	//upDownNodes[0].reserve(nodes.size());
@@ -108,9 +108,9 @@ void Region::buildSubRegions()
 
 void Region::applyForce(BitValue *n, RepulsionForce *Force, double thetaSq)
 {
-    if (nodes.size() == 1) { // ѕопали в регион с одним нодом - прит€гиваемс€ к нему
-        BitValue* regionNode = nodes[0];
-        Force->apply(n, regionNode);
+    if (nodes.size() <= 5) {
+        foreach (BitValue* r, nodes)
+            Force->apply(n, r);
     } else {
         double distance = DIST3DSQ(n->x - massCenterX, n->y - massCenterY, n->z - massCenterZ); // —читаем рассто€ние до центра масс
         if (distance * thetaSq > size) { // –ассто€ние больше порога - считаем прит€жение по региону в целом

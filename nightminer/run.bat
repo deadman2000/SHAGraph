@@ -1,0 +1,1 @@
+python nightminer.py -o stratum+tcp://eu.stratum.slushpool.com:3333 -O dead_man.worker1:1234

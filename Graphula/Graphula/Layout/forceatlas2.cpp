@@ -115,9 +115,11 @@ void ForceAtlas2::doAlg()
     }
 
     // Gravity
-    foreach (BitValue* n, nodes) {
-        if (n->depth > max_depth) continue;
-        GravityForce->apply(n, gravity / scalingRatio);
+    if (gravity > 0) {
+        foreach (BitValue* n, nodes) {
+            if (n->depth > max_depth) continue;
+            GravityForce->apply(n, gravity / scalingRatio);
+        }
     }
 
     // Attraction
@@ -125,7 +127,7 @@ void ForceAtlas2::doAlg()
         if (n->depth >= max_depth) continue;
         for (int i=0; i<n->GetInputsCount(); ++i) {
             BitValue* s = n->GetInputs()[i];
-            Attraction->apply(s, n, 1);
+            Attraction->apply(s, n, n->depth + 1);
         }
     }
 

@@ -46,7 +46,8 @@ namespace ShaCalc.Model
             int value = 0;
             for (int i = 0; i < 32; i++)
             {
-                if (Bits[i].Get())
+                var v = Bits[i].Get();
+                if (v.HasValue && v.Value)
                     value |= (1 << i);
             }
             return (uint)value;

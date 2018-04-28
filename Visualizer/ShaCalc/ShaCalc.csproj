@@ -78,13 +78,12 @@
     <Compile Include="Model\CircularShift32.cs" />
     <Compile Include="Model\ConstantBit.cs" />
     <Compile Include="Model\IdGenerator.cs" />
-    <Compile Include="Model\OutputBit.cs" />
-    <Compile Include="Model\OutputInt.cs" />
     <Compile Include="Model\IntValue.cs" />
     <Compile Include="Model\NOT.cs" />
     <Compile Include="Model\NOT32.cs" />
     <Compile Include="Model\OR.cs" />
     <Compile Include="Model\Shift32.cs" />
+    <Compile Include="Model\VariableBit.cs" />
     <Compile Include="Model\XOR.cs" />
     <Compile Include="Model\XOR32.cs" />
     <Compile Include="Program.cs" />

@@ -9,7 +9,7 @@
 class Region
 {
 public:
-    Region(QList<BitValue*> nodes);
+    Region(const QList<BitValue*> & nodes);
     ~Region();
 
     void updateMassAndGeometry();

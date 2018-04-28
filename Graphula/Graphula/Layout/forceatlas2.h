@@ -47,7 +47,7 @@ public:
 
     double scalingRatio = 2.0;        // Разреженность
     bool strongGravityMode = false;   // Усиление гравитации
-    double gravity = 1.0;             // Гравитация
+    double gravity = 0;             // Гравитация
 
 public slots:
     void work();

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ShaCalc.Model;
 
 namespace ShaCalc.Sha256Net
@@ -25,16 +26,31 @@ namespace ShaCalc.Sha256Net
 
         public BitValue[] GetOutBits()
         {
-            BitValue[] bits = new BitValue[8 * 32];
-            for (int i = 0; i < 8; i++)
+            BitValue[] bits = new BitValue[Ints.Length * 32];
+            for (int i = 0; i < Ints.Length; i++)
             {
                 var iv = Ints[i];
-                for (int n = 0; n < 32; n++)
-                {
-                    bits[i * 32 + n] = iv[n];
-                }
+                for (int n = 0; n < 4; n++)
+                    for (int b = 0; b < 8; b++)
+                    {
+                        bits[i * 32 + n * 8 + b] = iv[(3 - n) * 8 + b];
+                    }
             }
             return bits;
+        }
+
+        public byte[] ToBytes()
+        {
+            byte[] value = new byte[Ints.Length * 4];
+            for (int i = 0; i < Ints.Length; i++)
+            {
+                uint v = Ints[i].Get();
+                value[i * 4 + 3] = (byte)(v);
+                value[i * 4 + 2] = (byte)(v >> 8);
+                value[i * 4 + 1] = (byte)(v >> 16);
+                value[i * 4] = (byte)(v >> 24);
+            }
+            return value;
         }
     }
 }

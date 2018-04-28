@@ -14,16 +14,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->graphView->setFocus();
 
-    int max_depth = 5;
+    int max_depth = 8;
 
-    /*IntValue a(32);
+    IntValue a(32);
     IntValue b(54);
     auto c = a.Add(b);
-    QList<BitValue*> bits = c.OutBits();*/
+    QList<BitValue*> bits = c.OutBits();
 
-    QByteArray data(63, 0);
+    /*QByteArray data(63, 0);
     SHA sha(data);
-    QList<BitValue*> bits = sha.OutBits();
+    QList<BitValue*> bits = sha.OutBits();*/
 
     QSet<BitValue*> allBits;
     QQueue<BitValue*> queue;

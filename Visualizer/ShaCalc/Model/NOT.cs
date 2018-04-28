@@ -10,9 +10,22 @@ namespace ShaCalc.Model
             _x = x;
         }
 
-        protected override bool Calc()
+        protected override bool? Calc()
         {
-            return !_x.Get();
+            var v = _x.Get();
+            if (v.HasValue)
+                return !v;
+            return null;
+        }
+
+        protected override bool Request(bool value, bool hard)
+        {
+            if (_x.SetTarget(!value, hard))
+            {
+                _value = value;
+                return true;
+            }
+            return false;
         }
 
         public override BitValue[] GetInputs()
@@ -25,9 +38,14 @@ namespace ShaCalc.Model
             return "NOT";
         }
 
-        public override string GetColor()
+        protected override BitValue DoOptimize()
         {
-            return "gray";
+            _x = _x.Optimize();
+
+            if (_x is NOT)
+                return ((NOT)_x)._x;
+
+            return this;
         }
     }
 }
